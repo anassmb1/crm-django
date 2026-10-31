@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+
+{% block head_title %}Borrar interacción{% endblock %}
+    
+{% block page_content %}
+{% include '_includes/_messages.html' %}
+
+<div class="container py-4">
+    <h1 class="mb-4">Borrar interacción</h1>
+    <div class="card">
+        <div class="card-body">
+            <form action="" method="post">
+                {% csrf_token %}
+                <p class="mb-3">¿Estás seguro que quieres eliminar la siguiente interacción?</p>
+                <p class="mb-2"><strong>Cliente:</strong> {{ interaccion.cliente }}</p>
+                <p class="mb-2"><strong>Fecha:</strong> {{ interaccion.fecha }}</p>
+                <p class="mb-3"><strong>Notas:</strong> {{ interaccion.notas }}</p>
+                <button class="btn btn-danger me-2">Eliminar</button>
+                <a href="{% url 'detalle_cliente' interaccion.cliente.pk %}" class="btn btn-secondary">Cancelar</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

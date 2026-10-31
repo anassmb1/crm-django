@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+
+{% block head_title %}Empresas{% endblock %}
+    
+{% block page_content %}
+{% include '_includes/_messages.html' %}
+
+<div class="container py-4">
+    <h1 class="mb-4">Empresas</h1>
+    <a href="{% url 'crear_empresa' %}" class="btn btn-primary mb-4">Nueva empresa</a>
+
+    <h4 class="mb-3">Filtro de búsqueda</h4>
+    <div class="card mb-4">
+        <div class="card-body">
+            <form action="" method="get">
+                <div class="row g-3">
+                    <div class="col-md-8">
+                        <input class="form-control" placeholder="Nombre de la empresa" type="text" name="nombre_empresa" value="{{ request.GET.nombre_empresa }}">
+                    </div>
+                    <div class="col-md-4">
+                        <button class="btn btn-primary">Buscar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    {% if empresas %}
+        <h4 class="mb-3">Lista de empresas</h4>
+        <div class="row g-3">       
+        {% for empresa in empresas %}
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ empresa.nombre }}</h5>
+                        <p class="mb-2"><strong>Teléfono:</strong> {{ empresa.telefono }}</p>
+                        <p class="mb-3"><strong>Dirección:</strong> {{ empresa.direccion }}</p>
+                        <a href="{% url 'detalle_empresa' empresa.pk %}" class="btn btn-primary">Detalle</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-info">
+            Ninguna empresa coincide con el nombre buscado.
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

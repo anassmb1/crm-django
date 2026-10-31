@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+
+{% block head_title %}Clientes{% endblock %}
+    
+{% block page_content %}
+{% include '_includes/_messages.html' %}
+
+<div class="container py-4">
+    <h1 class="mb-4">Información detallada</h1>
+    <h4 class="mb-3">
+        {{ cliente.nombre }} {{ cliente.apellido }}
+    </h4>
+    <div class="card mb-4">
+        <div class="card-body">
+            <p class="mb-2"><strong>Empresa:</strong> {{ cliente.empresa }}</p>
+            <p class="mb-2"><strong>Teléfono:</strong> {{ cliente.telefono }}</p>
+            <p class="mb-2"><strong>Email:</strong> {{ cliente.email }}</p>
+            <p class="mb-3"><strong>Asignado a:</strong> {{ cliente.asignado_a }}</p>
+            <a href="{% url 'editar_cliente' cliente.pk %}" class="btn btn-primary me-2">Editar detalles</a>
+            <a href="{% url 'borrar_cliente' cliente.pk %}" class="btn btn-danger">Borrar cliente</a>
+        </div>
+    </div>
+
+<h5 class="mb-3">Interacciones</h5>
+<a href="{% url 'crear_interaccion' cliente.pk %}" class="btn btn-primary mb-3">Nueva interacción</a>
+{% for interaccion in cliente.interacciones.all %}
+    <div class="card mb-3">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <strong>Fecha:</strong> {{ interaccion.fecha }}
+                </div>
+                <div class="col-md-6">
+                    <strong>Trabajador:</strong> {{ interaccion.trabajador }}
+                </div>
+            </div>
+            <hr>
+            <p class="mb-3"><strong>Notas:</strong> {{ interaccion.notas }}</p>
+            <a href="{% url 'borrar_interaccion' interaccion.pk %}" class="btn btn-danger">Borrar interacción</a>
+        </div>
+    </div>
+{% empty %}
+    <div class="alert alert-info">
+        Este cliente todavía no tiene interacciones.
+    </div>
+{% endfor %}
+</div>
+{% endblock %}

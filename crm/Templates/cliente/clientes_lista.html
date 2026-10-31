@@ -1,0 +1,74 @@
+{% extends "layout.html" %}
+{% load crispy_forms_tags %}
+
+{% block head_title %}Clientes{% endblock %}
+    
+{% block page_content %}
+{% include '_includes/_messages.html' %}
+
+<div class="container py-4">
+    <h1 class="mb-4">Clientes</h1>
+    <h4 class="mb-3">Filtro de búsqueda</h4>
+    <div class="card mb-4">
+        <div class="card-body">
+            <form action="" method="get">
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <input class="form-control" placeholder="Nombre del cliente" type="text" name="q" value="{{ request.GET.q }}">
+                    </div>
+                    <div class="col-md-4">
+                        <select class="form-select" name="empresa" id="empresa">
+                            <option value="">Todas las empresas</option>
+                            {% for empresa in empresas %}
+                                <option value="{{ empresa.nombre }}" {% if request.GET.empresa == empresa.nombre %}selected{% endif %}>
+                                    {{ empresa.nombre }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <select class="form-select" name="trabajador" id="trabajador">
+                            <option value="">Todos los trabajadores</option>
+                            {% for trabajador in trabajadores %}
+                                <option value="{{ trabajador.first_name }}" {% if request.GET.trabajador == trabajador.first_name %}selected{% endif %}>
+                                    {{ trabajador.first_name }} {{ trabajador.last_name }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <button class="btn btn-primary">Buscar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    {% if clientes %}
+        <h4 class="mb-3">Lista de clientes</h4>
+        <div class="row g-3">
+            {% for cliente in clientes %}
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                {{ cliente.nombre }} {{ cliente.apellido }}
+                            </h5>
+                            <p class="mb-2">
+                                <strong>Empresa:</strong> {{ cliente.empresa }}
+                            </p>
+                            <p class="mb-3">
+                                <strong>Asignado a:</strong> {{ cliente.asignado_a }}
+                            </p>
+                            <a href="{% url 'detalle_cliente' cliente.pk %}" class="btn btn-primary">Detalle</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-info">
+            Ningún cliente coincide con estos datos.
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+
+{% block head_title %}Editar Empresa{% endblock %}
+    
+{% block page_content %}
+{% include '_includes/_messages.html' %}
+
+<div class="container py-4">
+    <h1 class="mb-4">Editar Empresa</h1>
+    <div class="card">
+        <div class="card-body">
+            <form action="" method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button class="btn btn-primary">Guardar cambios</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

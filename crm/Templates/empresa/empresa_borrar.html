@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+
+{% block head_title %}Borrar Empresa{% endblock %}
+    
+{% block page_content %}
+{% include '_includes/_messages.html' %}
+
+<div class="container py-4">
+    <h1 class="mb-4">Borrar Empresa</h1>
+    <div class="card">
+        <div class="card-body">
+            <form action="" method="post">
+                {% csrf_token %}
+                <p class="mb-3">Si eliminas <strong>{{ empresa.nombre }}</strong>, eliminarás también todos los clientes correspondientes a esta empresa. ¿Estás seguro de ello?</p>
+                <button class="btn btn-danger me-2">Eliminar empresa</button>
+                <a href="{% url 'detalle_empresa' empresa.pk %}" class="btn btn-secondary">Cancelar</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

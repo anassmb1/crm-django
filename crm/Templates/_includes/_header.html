@@ -1,0 +1,19 @@
+<header>
+    <div class="container">
+        <h1>CRM hecho con Django</h1>
+        <nav>
+            <ul>
+                <li><a href="{% url 'home' %}">Inicio</a></li>
+                {% if not user.is_authenticated %}
+                    <li><a href="{% url 'login' %}">Login</a></li>
+                    <li><a href="{% url 'register' %}">Registro</a></li>
+                {% else %}
+                    <li><a href="{% url 'logout' %}">Cerrar sesión</a></li>
+                    <li><a href="{% url 'lista_clientes' %}">Clientes</a></li>
+                    <li><a href="{% url 'crear_cliente' %}">Nuevo Cliente</a></li>
+                    <li><a href="{% url 'lista_empresas' %}">Empresas</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+</header>

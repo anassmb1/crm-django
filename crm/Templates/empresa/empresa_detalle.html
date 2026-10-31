@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+
+{% block head_title %}Detalle Empresa{% endblock %}
+    
+{% block page_content %}
+{% include '_includes/_messages.html' %}
+
+<div class="container py-4">
+    <h1 class="mb-4">{{ empresa.nombre }}</h1>
+    <div class="card mb-4">
+        <div class="card-body">
+            <p class="mb-2"><strong>Teléfono:</strong> {{ empresa.telefono }}</p>
+            <p class="mb-3"><strong>Dirección:</strong> {{ empresa.direccion }}</p>
+            <a href="{% url 'editar_empresa' empresa.pk %}" class="btn btn-primary me-2">Editar empresa</a>
+            <a href="{% url 'borrar_empresa' empresa.pk %}" class="btn btn-danger">Borrar empresa</a>
+        </div>
+    </div>
+    <h4 class="mb-3">Clientes miembros de {{ empresa.nombre }}</h4>
+    {% for cliente in empresa.clientes.all %}
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title">{{ cliente.nombre }} {{ cliente.apellido }}</h5>
+                <a href="{% url 'detalle_cliente' cliente.pk %}" class="btn btn-primary">Detalle cliente</a>
+            </div>
+        </div>
+    {% empty %}
+        <div class="alert alert-info">
+            Esta empresa aún no tiene clientes.
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,92 @@
+{% extends "layout.html" %}
+
+{% block head_title %}Página Home{% endblock %}
+    
+{% block page_content %}
+{% include '_includes/_messages.html' %}
+   
+<div class="container py-4">
+    <h1 class="mb-4">¡Bienvenido/a a mi CRM!</h1>
+    <h4 class="mb-3">Dashboard</h4>
+    <div class="row g-3 mb-4">
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Empresas</h5>
+                    <p class="mb-0">{{ empresas.count }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Clientes</h5>
+                    <p class="mb-0">{{ clientes.count }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Interacciones</h5>
+                    <p class="mb-0">{{ interacciones.count }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h4 class="mb-3">Últimas interacciones</h4>
+    {% for interaccion in ultimas_interacciones %}
+        <div class="card mb-3">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <strong>Fecha:</strong> {{ interaccion.fecha }}
+                    </div>
+                    <div class="col-md-4">
+                        <strong>Cliente:</strong> {{ interaccion.cliente }}
+                    </div>
+                    <div class="col-md-4">
+                        <strong>Trabajador:</strong> {{ interaccion.trabajador }}
+                    </div>
+                </div>
+                <hr>
+                <p class="mb-0">
+                    <strong>Notas:</strong> {{ interaccion.notas }}
+                </p>
+            </div>
+        </div>
+    {% empty %}
+        <div class="alert alert-info">
+            No hay interacciones todavía.
+        </div>
+    {% endfor %}
+    <h4 class="mb-3 mt-4">Clientes por empresa</h4>
+    <div class="card mb-4">
+        <div class="card-body">
+            {% for empresa in empresas_con_clientes %}
+                <div class="d-flex justify-content-between border-bottom py-2">
+                    <strong>{{ empresa.nombre }}</strong>
+                    <span>{{ empresa.numero_clientes }} clientes</span>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <h4 class="mb-3">Actividad por trabajador</h4>
+    <div class="card">
+        <div class="card-body">
+            {% for trabajador in trabajadores_con_interacciones %}
+                <div class="d-flex justify-content-between border-bottom py-2">
+                    <strong>
+                        {{ trabajador.first_name }} {{ trabajador.last_name }}
+                    </strong>
+
+                    <span>
+                        {{ trabajador.numero_interacciones }} interacciones
+                    </span>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}
