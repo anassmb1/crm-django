@@ -19,7 +19,7 @@ DEBUG = False
 ALLOWED_HOSTS = [
     "localhost",
     "127.0.0.1",
-    ".onrender.com",
+    "crm-django-p50h.onrender.com",
     ]
 
 
