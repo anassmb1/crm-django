@@ -1,5 +1,6 @@
 from pathlib import Path
 from django.urls import reverse_lazy
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -10,13 +11,16 @@ TEMPLATES_DIR = BASE_DIR/ 'crm'/ 'Templates'
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-vb(0%&dj0z5q70rtd5g*qnqawkh$gyx2z8+t+#hxx)nz&vcxp@'
+SECRET_KEY = os.environ["SECRET_KEY"]
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["localhost",
-    "127.0.0.1",]
+ALLOWED_HOSTS = [
+    "localhost",
+    "127.0.0.1",
+    ".onrender.com",
+    ]
 
 
 # Application definition
